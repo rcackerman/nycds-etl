@@ -148,7 +148,6 @@ CREATE TABLE dispositions (
   dsp_ini_chg_number character varying,
   dsp_ini_chg_type character varying,
   dsp_ini_chg_atd character varying,
-  dsp_case_open_date character varying,
   dsp_date character varying,
   dsp_action character varying,
   dsp_final_chg_short character varying,
