@@ -108,7 +108,7 @@ ALTER TABLE cases OWNER TO postgres;
 
 CREATE INDEX cas_clientid_idx ON cases (cas_clientid);
 CREATE INDEX cas_aliasid_idx ON cases (cas_aliasid);
-CREATE INDEX cas_person_idx ON cases (cas_aliasid, cas_clientid)
+CREATE INDEX cas_person_idx ON cases (cas_aliasid, cas_clientid);
 CREATE INDEX cas_closed_date_idx ON cases (cas_closed_date, cas_case_status);
 CREATE INDEX cas_open_date_idx ON cases (cas_open_date);
 CREATE INDEX cas_status_idx ON cases (cas_case_status);
@@ -154,9 +154,9 @@ CREATE TABLE dispositions (
   dsp_final_chg_short character varying,
   dsp_final_chg_number character varying,
   dsp_final_chg_type character varying,
-  dsp_final_chg_atd character varying
+  dsp_final_chg_atd character varying,
   dsp_notes text,
-  UNIQUE (dsp_file_number, dsp_top_chg , dsp_final_chg_number, dsp_order)
+  UNIQUE (dsp_file_number, dsp_top_chg, dsp_final_chg_number, dsp_order)
 );
 
 
@@ -228,7 +228,7 @@ CREATE TABLE main_memos (
   mem_date character varying,
   mem_event_date character varying,
   mem_reference text,
-  UNIQUE (mem_file_number, mem_number DESC, mem_attorneyid, mem_date)
+  UNIQUE (mem_file_number, mem_number, mem_attorneyid, mem_date)
 );
 
 ALTER TABLE main_memos OWNER TO postgres;
