@@ -1,15 +1,15 @@
 import re, csv
 
-INFILENAME = '.\dispo2'
+INFILENAME = 'dispo2'
 OUTFILENAME = INFILENAME + '_cleaned'
 
 def escape_quotes(row):
     """Escapes any rows with misplaced quotes
     """
     if re.search(r'[^\t"\n]"[^\t"\n]', row):
-        row = re.sub(r'(?<=[^\t"\n])"(?=[^\t"\n])', r'\"', row)
+        row = re.sub(r'(?<=[^\t"\n])"(?=[^\t"\n])', r'""', row)
     if re.search(r'(?<!\s)"(?="([\t\n]|$))', row):
-        row = re.sub(r'(?<!\s)"(?="([\t\n]|$))', r'\"', row)
+        row = re.sub(r'(?<!\s)"(?="([\t\n]|$))', r'""', row)
     row = re.split(r'\t', row)
     return row
 
@@ -26,10 +26,8 @@ with open('{}.csv'.format(INFILENAME), 'rb') as f:
 CSV_ROWS = [escape_quotes(row) for row in CSV_ROWS]
 CSV_ROWS = [strip_surrounding_quotes(row) for row in CSV_ROWS]
 
-with open('{}.csv'.format(OUTFILENAME), 'w') as of:
+with open('{}.csv'.format(OUTFILENAME), 'w+') as of:
     writer = csv.writer(of,
-                        doublequote=False,
-                        escapechar='\\',
                         lineterminator='\n',
                         quoting=csv.QUOTE_ALL,
                         strict=True)
