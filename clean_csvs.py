@@ -1,15 +1,18 @@
 import re, csv
 
-def split_lines(file_object):
+def split_lines(file_object, file_type):
     """Split lines based on the number of columns in the header line.
     """
     file_text = file_object.read()
-    n = len(file_text.splitlines()[0].split('\t')) - 1
+    if file_type == 'normal':
+        n = len(file_text.splitlines()[0].split('\t')) - 1
 
-    # Multiplying by the number of fields - 1 so we don't have to deal with
-    # re.split() dealing weirdly with capturing groups.
-    # This is hack-y code. Don't do this at home.
-    line = re.compile('\r\n(?="' + '[^\t\n]*?\t'* n + '[^\t\n]*)')
+        # Multiplying by the number of fields - 1 so we don't have to deal with
+        # re.split() dealing weirdly with capturing groups.
+        # This is hack-y code. Don't do this at home.
+        line = re.compile('(?<=")\r\n(?="' + '[^\t]*?\t'* n + '[^\t]*)')
+    elif file_type == 'notes':
+        line = re.compile('\r\n(?="[0-9ANY]+?")')
     return re.split(line, file_text)
 
 def escape_quotes(row):
@@ -42,17 +45,40 @@ def check_and_write(csv_rows):
         writer.writerows(csv_rows)
 
 
-INFILENAME = 'results'
-OUTFILENAME = INFILENAME + '_cleaned'
+NORMAL_FILES = ['addresses', 'cases', 'custodystatus',
+                'memopages', 'memomain', 'names', 'results', 'loi']
 
-# To split correctly, look ahead for a quote mark followed by a number.
-with open('{}.csv'.format(INFILENAME), 'rb') as f:
-    CSV_ROWS = split_lines(f)
+NOTES_FILES = ['dispo2', 'events', 'sentences']
 
-# A blank last line will leave an extra \r\n in the final row, so delete it.
-CSV_ROWS[-1] = re.sub(r'""\r\n', '""', CSV_ROWS[-1])
+for cf in NORMAL_FILES:
+    print cf
+    OUTFILENAME = cf + '_cleaned'
 
-CSV_ROWS = [escape_quotes(row) for row in CSV_ROWS]
-CSV_ROWS = [strip_surrounding_quotes(row) for row in CSV_ROWS]
+    # To split correctly, look ahead for a quote mark followed by a number.
+    with open('{}.csv'.format(cf), 'rb') as f:
+        CSV_ROWS = split_lines(f, 'normal')
 
-check_and_write(CSV_ROWS)
+    # A blank last line will leave an extra \r\n in the final row, so delete it.
+    CSV_ROWS[-1] = re.sub(r'""\r\n', '""', CSV_ROWS[-1])
+
+    CSV_ROWS = [escape_quotes(row) for row in CSV_ROWS]
+    CSV_ROWS = [strip_surrounding_quotes(row) for row in CSV_ROWS]
+
+    check_and_write(CSV_ROWS)
+
+
+for cf in NOTES_FILES:
+    print cf
+    OUTFILENAME = cf + '_cleaned'
+
+    # To split correctly, look ahead for a quote mark followed by a number.
+    with open('{}.csv'.format(cf), 'rb') as f:
+        CSV_ROWS = split_lines(f, 'notes')
+
+    # A blank last line will leave an extra \r\n in the final row, so delete it.
+    CSV_ROWS[-1] = re.sub(r'""\r\n', '""', CSV_ROWS[-1])
+
+    CSV_ROWS = [escape_quotes(row) for row in CSV_ROWS]
+    CSV_ROWS = [strip_surrounding_quotes(row) for row in CSV_ROWS]
+
+    check_and_write(CSV_ROWS)
