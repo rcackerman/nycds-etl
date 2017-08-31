@@ -101,7 +101,7 @@ CREATE TABLE cases (
   cas_idv_famfileno character varying,
   cas_number_type character varying,
   cas_arraigndate character varying,
-  cas_sent_days numeric
+  cas_sent_days character varying
 );
 
 ALTER TABLE cases OWNER TO postgres;
@@ -129,7 +129,7 @@ CREATE TABLE custody_statuses (
   cust_nameid character varying,
   cust_date_entered character varying,
   cust_def_case_status character varying,
-  UNIQUE(cust_nameid, cust_file_number, cust_date_entered)
+  UNIQUE(cust_nameid, cust_file_number, cust_date_entered, cust_def_case_status)
 );
 
 ALTER TABLE custody_statuses OWNER TO postgres;
@@ -205,6 +205,7 @@ CREATE TABLE loi (
   loi_dob character varying,
   loi_ssn character varying,
   loi_nysid character varying,
+  loi_marker character varying,
   loi_notes text,
   UNIQUE (loi_name_link, loi_file_number, loi_nameid, loi_type)
 );
