@@ -28,6 +28,19 @@ def strip_surrounding_quotes(row):
     row = [re.sub(r'^"|"$', '', field) for field in row]
     return row
 
+def check_and_write(csv_rows):
+    for i, l in enumerate(csv_rows):
+        if len(l) != len(csv_rows[0]):
+            print i, l
+            return False
+    print 'All systems go'
+    with open('{}.csv'.format(OUTFILENAME), 'w+') as of:
+        writer = csv.writer(of,
+                            lineterminator='\n',
+                            quoting=csv.QUOTE_ALL,
+                            strict=True)
+        writer.writerows(csv_rows)
+
 
 INFILENAME = 'results'
 OUTFILENAME = INFILENAME + '_cleaned'
@@ -42,9 +55,4 @@ CSV_ROWS[-1] = re.sub(r'""\r\n', '""', CSV_ROWS[-1])
 CSV_ROWS = [escape_quotes(row) for row in CSV_ROWS]
 CSV_ROWS = [strip_surrounding_quotes(row) for row in CSV_ROWS]
 
-with open('{}.csv'.format(OUTFILENAME), 'w+') as of:
-    writer = csv.writer(of,
-                        lineterminator='\n',
-                        quoting=csv.QUOTE_ALL,
-                        strict=True)
-    writer.writerows(CSV_ROWS)
+check_and_write(CSV_ROWS)
