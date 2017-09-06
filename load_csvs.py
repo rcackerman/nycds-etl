@@ -1,11 +1,13 @@
-import csv
+"""Imports cleaned CSVs into PostgreSQL
+"""
+
 import psycopg2
 
 FILENAMES = {'addresses_cleaned.csv': 'addresses',
-             'custodystatus_cleaned.csv': 'custody_statuses',
-             'dispo2_cleaned.csv': 'dispositions',
+             'custody_statuses_cleaned.csv': 'custody_statuses',
+             'dispositions_cleaned.csv': 'dispositions',
              'events_cleaned.csv': 'events',
-             'memomain_cleaned.csv': 'main_memos',
+             'memo_main_cleaned.csv': 'main_memos',
              'names_cleaned.csv': 'names',
              'results_cleaned.csv': 'results',
              'sentences_cleaned.csv': 'sentences',
@@ -21,7 +23,8 @@ SQL_STATEMENT = """
 
 def copy_csv(connection, table_name, csv_file):
     """Open CSV and copy into database table.
-    Heavily borrowed from https://www.laurivan.com/load-a-csv-file-with-header-in-postgres-via-psycopg/
+    Heavily borrowed from
+    https://www.laurivan.com/load-a-csv-file-with-header-in-postgres-via-psycopg/
     """
     cur = connection.cursor()
     cur.copy_expert(sql=SQL_STATEMENT % table_name, file=csv_file)
@@ -31,7 +34,7 @@ def copy_csv(connection, table_name, csv_file):
 
 conn = psycopg2.connect("dbname=pdcms user=postgres port=5433")
 
-for k, v in FILENAMES.iteritems():
-    print v
+for k, v in FILENAMES.items():
+    print(v)
     with open(k, 'rb') as f:
         copy_csv(conn, v, f)
