@@ -26,22 +26,12 @@ This ETL is currently pretty fragile. You must run these steps in order.
 | Name in PDCMS DB  | Necessary file name  |
 |-------------------|----------------------|
 | Fil_Addresses     | addresses.csv        |
-|-------------------|----------------------|
 | Fil_Cases         | cases.csv            |
-|-------------------|----------------------|
 | Fil_CustodyStatus2| custody_statuses.csv |
-|-------------------|----------------------|
 | Fil_Dispo2        | dispositions.csv     |
-|-------------------|----------------------|
 | Fil_Events        | events.csv           |
-|-------------------|----------------------|
 | Fil_LOI           | loi.csv              |
-|-------------------|----------------------|
 | Fil_MemoMain      | memo_main.csv        |
-|-------------------|----------------------|
 | Fil_Names         | names.csv            |
-|-------------------|----------------------|
 | Fil_Results       | results.csv          |
-|-------------------|----------------------|
 | Fil_Sent2         | sentences.csv        |
-|-------------------|----------------------|
