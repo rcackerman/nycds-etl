@@ -35,3 +35,8 @@ This ETL is currently pretty fragile. You must run these steps in order.
 | Fil_Names         | names.csv            |
 | Fil_Results       | results.csv          |
 | Fil_Sent2         | sentences.csv        |
+
+
+
+**Todo**
+Transition current query to use `replace([column], '"', '''')`, then `pd.read_csv` in ETL process.
