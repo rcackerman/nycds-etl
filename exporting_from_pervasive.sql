@@ -1,22 +1,21 @@
 -- Queries to get export data
-SELECT
- adr_NameID,
+SELECT adr_NameID,
  adr_File_Number,
  adr_Type,
  adr_Date,
  adr_Print,
- adr_Street1,
- adr_Street2,
- adr_City,
- adr_State,
+ REPLACE(adr_Street1, '"', '''') AS adr_Street1,
+ REPLACE(adr_Street2, '"', '''') AS adr_Street2,
+ REPLACE(adr_City, '"', '''') AS adr_City,
+ REPLACE(adr_State, '"', '''') AS adr_State,
  adr_ZipCode,
  adr_Ph_Number,
- adr_More_Phones
+ adr_More_Phones,
+ rowid__
 FROM Fil_Addresses
 ;
 
-SELECT
-  cas_ClientID,
+SELECT  cas_ClientID,
   cas_AliasID,
   cas_File_Number,
   cas_Case_Status,
@@ -54,7 +53,7 @@ SELECT
   cas_Date_Bail_Posted,
   cas_Date_Bail_Set,
   cas_Imm_Bond,
-  cas_Bail_Bond_Notes,
+  REPLACE(cas_Bail_Bond_Notes, '"', '''') AS cas_Bail_Bond_Notes,
   cas_Interviewed,
   cas_Intvw_Atty,
   cas_Fam_File_Number,
@@ -83,42 +82,18 @@ SELECT
   cas_IDV_FamFileNo,
   cas_Number_Type,
   cas_ArraignDate,
-  cas_Sent_Days
+  cas_Sent_Days,
+ rowid__
 FROM Fil_Cases;
 
-SELECT
-res_File_Number,
-res_USerID,
-res_Code,
-res_Date,
-res_Court,
-res_Purpose,
-res_Detail
-FROM Fil_Results;
-
-SELECT
-  snt_File_Number,
-  snt_Order,
-  snt_TopChg,
-  snt_Chg_Number,
-  snt_Chg_Descr,
-  snt_Chg_Type,
-  snt_Date,
-  snt_Type,
-  snt_Length,
-  snt_Condition,
-  snt_Notes
-FROM Fil_Sent2;
-
-SELECT
-cust_File_Number,
+SELECT cust_File_Number,
 cust_NameID,
 cust_Date_Entered,
-cust_Def_Case_Status
+cust_Def_Case_Status,
+ rowid__
 FROM Fil_CustodyStatus2;
 
-SELECT
-  dsp_File_Number,
+SELECT dsp_File_Number,
   dsp_Order,
   dsp_Top_Chg,
   dsp_in_Chg_Count,
@@ -132,12 +107,12 @@ SELECT
   dsp_Final_Chg_Number,
   dsp_Final_Chg_Type,
   dsp_Final_Chg_ATD,
-  dsp_Notes
+  REPLACE(dsp_Notes, '"', '''') AS dsp_Notes,
+ rowid__
 FROM Fil_Dispo2
 ;
 
-SELECT
-  evt_File_Number,
+SELECT  evt_File_Number,
   evt_Event_Type,
   evt_Event_Date,
   evt_Court,
@@ -146,12 +121,12 @@ SELECT
   evt_Attorney,
   evt_Judge,
   evt_ADA,
-  evt_Notes
+  REPLACE(evt_Notes, '"', '''') AS evt_Notes,
+ rowid__
 FROM Fil_Events
 ;
 
-SELECT
-  loi_Name_Link,
+SELECT  loi_Name_Link,
   loi_Name_Link_Alias,
   loi_File_Number,
   loi_System_Date,
@@ -161,21 +136,20 @@ SELECT
   loi_DOB,
   loi_SSN,
   loi_NYSID,
-  loi_Notes
+  REPLACE(loi_Notes, '"', '''') AS loi_Notes,
+ rowid__
 FROM Fil_LOI
 ;
 
-SELECT
-  mem_File_Number,
+SELECT  mem_File_Number,
   mem_Number,
   mem_AttorneyID,
   mem_Date,
-  mem_Event_Date,
-  mem_Reference
-FROM Fil_MemoMain;
+  REPLACE(mem_Reference, '"', '''') AS mem_Reference,
+ rowid__
+FROM Fil_MemoMain1;
 
-SELECT
-nam_NameID,
+SELECT nam_NameID,
 nam_Alias_Link,
 nam_Moris_Number,
 nam_NYSID,
@@ -215,5 +189,30 @@ nam_mil_Dischg_Type,
 nam_mil_Decor_Combat,
 nam_In_area_since,
 nam_Type_of_Name,
-nam_Outst_Warr
+nam_Outst_Warr,
+ rowid__
 FROM Fil_Names;
+
+SELECT res_File_Number,
+res_USerID,
+res_Code,
+res_Date,
+res_Court,
+res_Purpose,
+res_Detail,
+ rowid__
+FROM Fil_Results;
+
+SELECT  snt_File_Number,
+  snt_Order,
+  snt_TopChg,
+  snt_Chg_Number,
+  snt_Chg_Descr,
+  snt_Chg_Type,
+  snt_Date,
+  snt_Type,
+  snt_Length,
+  snt_Condition,
+  REPLACE(snt_Notes, '"', '''') AS snt_Notes,
+ rowid__
+FROM Fil_Sent2;
