@@ -1,0 +1,38 @@
+addresses:
+  file: 'addresses.csv'
+  table: 'addresses'
+  notes: False
+  datatypes: 'object'
+cases:
+  file: 'cases.csv'
+  table: 'cases'
+  notes: False
+  datatypes: 'object'
+custody_statuses:
+  file: 'custody_statuses.csv'
+  table: 'custody_statuses'
+  notes: True
+memo_main:
+  file: 'memo_main.csv'
+  table: 'memo_main'
+  notes: True
+names:
+  file: 'names.csv'
+  table: 'names'
+  notes: False
+results:
+  file: 'results.csv'
+  table: 'results'
+  notes: False
+loi:
+  file: 'loi.csv'
+  table: 'loi'
+  notes: False
+dispositions:
+  file: 'dispositions.csv'
+  table: 'dispositions'
+  notes: True
+events:
+  file: 'events.csv'
+  table: 'events'
+  notes: True
