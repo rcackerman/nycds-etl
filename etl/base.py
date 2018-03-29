@@ -5,7 +5,8 @@ from os import path
 
 CFG = yaml.load(open('config.yaml', 'r'))
 
-class DataTable:
+class ETLDataTable():
+
     def __init__(self, table_name):
         # Name of the database table
         self.table_name = CFG[table_name]['table']
@@ -20,16 +21,20 @@ class DataTable:
         except:
             pass
 
-    def load_df(self, root_path, **kwargs):
+    def load_df(self, **kwargs):
         """Read the csv associated with the table name,
         then import as a pandas DataFrame
         """
-        csv_path = os.path.join(root_path, self.file_name)
-        return pandas.read_csv(csv_path, 
+        _ = path.join(path.abspath(path.pardir), self.file_name)
+        self.frame = pandas.read_csv(_, 
                                na_values = ['00000000', ' ', ''],
                                encoding="latin1",
                                dtype="object",
                                **kwargs)
 
     def strip_strings(self):
-        return df.replace(r'^\s+$', numpy.NaN, regex=True)
+        self.frame = self.frame.replace(r'^\s+$', numpy.NaN, regex=True)
+
+    def coerce_to_date(self):
+        for dcol in CFG[self.table_name]['date_columns']:
+            print(dcol)
