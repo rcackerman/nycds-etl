@@ -3,6 +3,7 @@ addresses:
   table: 'addresses'
   notes: False
   datatypes: 'object'
+  date_columns: ['adr_Date']
 cases:
   file: 'cases.csv'
   table: 'cases'
