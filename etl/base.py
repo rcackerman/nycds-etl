@@ -23,18 +23,23 @@ class ETLDataTable():
 
     def load_df(self, **kwargs):
         """Read the csv associated with the table name,
-        then import as a pandas DataFrame
+        then import as a pandas DataFrame.
         """
         _ = path.join(path.abspath(path.pardir), self.file_name)
         self.frame = pandas.read_csv(_, 
                                na_values = ['00000000', ' ', ''],
-                               encoding="latin1",
-                               dtype="object",
+                               encoding='latin1',
+                               dtype='object',
                                **kwargs)
 
     def strip_strings(self):
+        """Set any cell with only spaces to null.
+        """
         self.frame = self.frame.replace(r'^\s+$', numpy.NaN, regex=True)
 
     def coerce_to_date(self):
-        for dcol in CFG[self.table_name]['date_columns']:
-            print(dcol)
+        dcols = CFG[self.table_name]['date_columns']
+        self.frame[dcols] = self.frame[dcols].transform(
+                lambda x: pandas.to_datetime(x,
+                                             format='%Y%m%d',
+                                             errors='coerce'))
