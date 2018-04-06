@@ -9,6 +9,7 @@ cases:
   table: 'cases'
   notes: False
   datatypes: 'object'
+  date_columns: ['cas_Open_Date','cas_Closed_Date', 'cas_Crime_Date','cas_Arrest_Date','cas_Date_Bail_Posted','cas_Date_Bail_Set','cas_Entry_Date','cas_ArraignDate']
 custody_statuses:
   file: 'custody_statuses.csv'
   table: 'custody_statuses'
