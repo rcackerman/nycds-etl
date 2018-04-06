@@ -1,7 +1,8 @@
+from os import path
 import pandas
 import numpy
 import yaml
-from os import path
+from sqlalchemy import create_engine
 
 CFG = yaml.load(open('config.yaml', 'r'))
 
@@ -43,3 +44,6 @@ class ETLDataTable():
                 lambda x: pandas.to_datetime(x,
                                              format='%Y%m%d',
                                              errors='coerce'))
+
+    def save_to_table(self, conn, **kwargs): 
+        self.frame.to_sql(name=self.table_name, con=conn, **kwargs)
