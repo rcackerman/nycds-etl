@@ -39,6 +39,10 @@ class ETLDataTable():
         self.frame = self.frame.replace(r'^\s+$', numpy.NaN, regex=True)
 
     def coerce_to_date(self):
+        """Coerce the columns listed in the config file into Pandas datetime
+        so they can be transferred to PostgreSQL in that format. Drop any
+        dates that can't be coerced.
+        """
         dcols = CFG[self.table_name]['date_columns']
         self.frame[dcols] = self.frame[dcols].transform(
                 lambda x: pandas.to_datetime(x,
@@ -46,4 +50,6 @@ class ETLDataTable():
                                              errors='coerce'))
 
     def save_to_table(self, conn, **kwargs): 
+        """Save frame to a PostgreSQL, using Pandas built-in to_sql() method.
+        """
         self.frame.to_sql(name=self.table_name, con=conn, **kwargs)
