@@ -1,6 +1,6 @@
 addresses:
   file: 'addresses.csv'
-  table: 'addresses'
+  table: 'addresses1'
   notes: False
   datatypes: 'object'
   date_columns: ['adr_Date']
@@ -14,27 +14,34 @@ custody_statuses:
   file: 'custody_statuses.csv'
   table: 'custody_statuses'
   notes: True
+  date_columns: ['cust_Date_Entered']
 memo_main:
   file: 'memo_main.csv'
   table: 'memo_main'
   notes: True
+  date_columns: ['mem_Date']
 names:
   file: 'names.csv'
   table: 'names'
   notes: False
+  date_columns: ['nam_DOB']
 results:
   file: 'results.csv'
   table: 'results'
   notes: False
+  date_columns: ['res_Date']
 loi:
   file: 'loi.csv'
   table: 'loi'
   notes: False
+  date_columns: ['loi_System_Date', 'loi_DOB']
 dispositions:
   file: 'dispositions.csv'
   table: 'dispositions'
   notes: True
+  date_columns: ['dsp_Date']
 events:
   file: 'events.csv'
   table: 'events'
   notes: True
+  date_columns: ['evt_Event_Date']
