@@ -3,45 +3,45 @@ addresses:
   table: 'addresses1'
   notes: False
   datatypes: 'object'
-  date_columns: ['adr_Date']
+  date_columns: ['adr_date']
 cases:
   file: 'cases.csv'
   table: 'cases'
   notes: False
   datatypes: 'object'
-  date_columns: ['cas_Open_Date','cas_Closed_Date', 'cas_Crime_Date','cas_Arrest_Date','cas_Date_Bail_Posted','cas_Date_Bail_Set','cas_Entry_Date','cas_ArraignDate']
+  date_columns: ['cas_open_date','cas_closed_date', 'cas_crime_date','cas_arrest_date','cas_date_bail_posted','cas_date_bail_set','cas_entry_date','cas_arraigndate']
 custody_statuses:
   file: 'custody_statuses.csv'
   table: 'custody_statuses'
   notes: True
-  date_columns: ['cust_Date_Entered']
+  date_columns: ['cust_date_entered']
 memo_main:
   file: 'memo_main.csv'
   table: 'memo_main'
   notes: True
-  date_columns: ['mem_Date']
+  date_columns: ['mem_date']
 names:
   file: 'names.csv'
   table: 'names'
   notes: False
-  date_columns: ['nam_DOB']
+  date_columns: ['nam_dob']
 results:
   file: 'results.csv'
   table: 'results'
   notes: False
-  date_columns: ['res_Date']
+  date_columns: ['res_date']
 loi:
   file: 'loi.csv'
   table: 'loi'
   notes: False
-  date_columns: ['loi_System_Date', 'loi_DOB']
+  date_columns: ['loi_system_date', 'loi_dob']
 dispositions:
   file: 'dispositions.csv'
   table: 'dispositions'
   notes: True
-  date_columns: ['dsp_Date']
+  date_columns: ['dsp_date']
 events:
   file: 'events.csv'
   table: 'events'
   notes: True
-  date_columns: ['evt_Event_Date']
+  date_columns: ['evt_event_date']

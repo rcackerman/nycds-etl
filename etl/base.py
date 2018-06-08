@@ -4,7 +4,11 @@ import numpy
 import yaml
 from sqlalchemy import create_engine
 
-CFG = yaml.load(open('config.yaml', 'r'))
+ETL_DIR = path.dirname(path.abspath(__file__))
+ROOT_DIR = path.dirname(ETL_DIR)
+CFG = yaml.load(
+            open(
+                path.join(ETL_DIR, 'config.yaml'), 'r'))
 
 class ETLDataTable():
 
@@ -24,12 +28,17 @@ class ETLDataTable():
         """Read the csv associated with the table name,
         then import as a pandas DataFrame.
         """
-        _ = path.join(path.abspath(path.pardir), self.file_name)
+        _ = path.join(ROOT_DIR, self.file_name)
         self.frame = pandas.read_csv(_, 
                                na_values = ['00000000', ' ', ''],
                                encoding='latin1',
                                dtype='object',
                                **kwargs)
+
+    def lowercase_columns(self):
+        """Set the columnnames to lowercase, for ease of querying
+        """
+        self.frame.columns = [i.lower() for i in self.frame.columns]
 
     def strip_strings(self):
         """Set any cell with only spaces to null.
